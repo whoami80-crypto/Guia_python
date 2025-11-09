@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Completa de Python - Certificación</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary: #306998;
+            --secondary: #FFD43B;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #4B8BBE);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin: 1.5rem 0 1rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 0.5rem;
+        }
+        
+        h3 {
+            color: var(--dark);
+            margin: 1.2rem 0 0.8rem;
+        }
+        
+        nav {
+            background-color: var(--dark);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav-item {
+            color: white;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-item:hover {
+            background-color: var(--primary);
+        }
+        
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .code-block {
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .exercise {
+            background-color: #e9f7fe;
+            border-left: 4px solid var(--info);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .interactive {
+            background-color: #f0f8ff;
+            border: 1px solid #b3d9ff;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            margin: 0.5rem;
+        }
+        
+        button:hover {
+            background-color: #25567c;
+        }
+        
+        input, textarea, select {
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            width: 100%;
+        }
+        
+        .output {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+            min-height: 50px;
+        }
+        
+        .certificate-section {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        }
+        
+        .certificate-preview {
+            background-color: white;
+            border: 2px solid var(--primary);
+            padding: 3rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .certificate-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .certificate-text {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+        
+        .signature-area {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .signature {
+            border-top: 1px solid #333;
+            width: 200px;
+            text-align: center;
+            padding-top: 0.5rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--success);
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .tab-container {
+            margin: 1.5rem 0;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+        }
+        
+        .tab.active {
+            background-color: white;
+            border-color: #ddd;
+            border-bottom-color: white;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+            
+            .nav-item {
+                text-align: center;
+            }
+            
+            .certificate-preview {
+                padding: 1.5rem;
+            }
+            
+            .certificate-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Guía Completa de Python</h1>
+            <p>De principiante a experto - Con certificación al finalizar</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <a href="#introduccion" class="nav-item">Introducción</a>
+            <a href="#variables" class="nav-item">Variables y Tipos</a>
+            <a href="#estructuras" class="nav-item">Estructuras de Datos</a>
+            <a href="#funciones" class="nav-item">Funciones</a>
+            <a href="#bucles" class="nav-item">Bucles y Condiciones</a>
+            <a href="#objetos" class="nav-item">Programación Orientada a Objetos</a>
+            <a href="#ejercicios" class="nav-item">Ejercicios</a>
+            <a href="#certificado" class="nav-item">Certificado</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <section id="introduccion" class="section">
+            <h2>Introducción a Python</h2>
+            <p>Python es un lenguaje de programación interpretado, de alto nivel y con una sintaxis clara y legible. Es multiparadigma, soportando programación orientada a objetos, imperativa y funcional.</p>
+            
+            <h3>¿Por qué Python?</h3>
+            <ul>
+                <li>Sintaxis clara y legible</li>
+                <li>Multipropósito: web, ciencia de datos, IA, automatización, etc.</li>
+                <li>Gran comunidad y ecosistema de librerías</li>
+                <li>Fácil de aprender para principiantes</li>
+            </ul>
+            
+            <h3>Tu primer programa en Python</h3>
+            <div class="code-block">
+                # Esto es un comentario en Python<br>
+                print("¡Hola, Mundo!")  # Esta función muestra texto en la consola
+            </div>
+            
+            <div class="interactive">
+                <h3>Prueba el código</h3>
+                <textarea id="code1" rows="4" cols="50">print("¡Hola, Mundo!")</textarea>
+                <button onclick="runCode('code1', 'output1')">Ejecutar</button>
+                <div class="output" id="output1"></div>
+            </div>
+        </section>
+        
+        <section id="variables" class="section">
+            <h2>Variables y Tipos de Datos</h2>
+            <p>En Python, las variables se crean cuando se les asigna un valor. No es necesario declararlas explícitamente.</p>
+            
+            <h3>Tipos de datos básicos</h3>
+            <div class="code-block">
+                # Enteros (int)<br>
+                edad = 25<br>
+                <br>
+                # Flotantes (float)<br>
+                altura = 1.75<br>
+                <br>
+                # Cadenas (str)<br>
+                nombre = "Ana"<br>
+                <br>
+                # Booleanos (bool)<br>
+                es_estudiante = True<br>
+                <br>
+                # None (equivalente a null)<br>
+                valor = None
+            </div>
+            
+            <h3>Operaciones con variables</h3>
+            <div class="code-block">
+                a = 10<br>
+                b = 3<br>
+                <br>
+                suma = a + b<br>
+                resta = a - b<br>
+                multiplicacion = a * b<br>
+                division = a / b  # Resultado: 3.333...<br>
+                division_entera = a // b  # Resultado: 3<br>
+                modulo = a % b  # Resultado: 1<br>
+                potencia = a ** b  # Resultado: 1000
+            </div>
+            
+            <div class="exercise">
+                <h3>Ejercicio: Calculadora simple</h3>
+                <p>Crea un programa que pida dos números al usuario y muestre la suma, resta, multiplicación y división.</p>
+                <div class="interactive">
+                    <button onclick="showSolution('sol1')">Ver solución</button>
+                    <div id="sol1" class="output" style="display:none;">
+                        <div class="code-block">
+                            num1 = float(input("Introduce el primer número: "))<br>
+                            num2 = float(input("Introduce el segundo número: "))<br>
+                            <br>
+                            print(f"Suma: {num1 + num2}")<br>
+                            print(f"Resta: {num1 - num2}")<br>
+                            print(f"Multiplicación: {num1 * num2}")<br>
+                            print(f"División: {num1 / num2}")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="estructuras" class="section">
+            <h2>Estructuras de Datos</h2>
+            
+            <div class="tab-container">
+                <div class="tabs">
+                    <div class="tab active" onclick="openTab(event, 'listas')">Listas</div>
+                    <div class="tab" onclick="openTab(event, 'tuplas')">Tuplas</div>
+                    <div class="tab" onclick="openTab(event, 'diccionarios')">Diccionarios</div>
+                    <div class="tab" onclick="openTab(event, 'conjuntos')">Conjuntos</div>
+                </div>
+                
+                <div id="listas" class="tab-content active">
+                    <h3>Listas</h3>
+                    <p>Las listas son colecciones ordenadas y mutables de elementos.</p>
+                    <div class="code-block">
+                        # Crear una lista<br>
+                        frutas = ["manzana", "banana", "cereza"]<br>
+                        numeros = [1, 2, 3, 4, 5]<br>
+                        <br>
+                        # Acceder a elementos<br>
+                        print(frutas[0])  # "manzana"<br>
+                        print(frutas[-1])  # "cereza" (último elemento)<br>
+                        <br>
+                        # Modificar elementos<br>
+                        frutas[1] = "naranja"<br>
+                        <br>
+                        # Añadir elementos<br>
+                        frutas.append("uva")  # Añade al final<br>
+                        frutas.insert(1, "mango")  # Inserta en posición específica<br>
+                        <br>
+                        # Eliminar elementos<br>
+                        frutas.remove("manzana")  # Elimina por valor<br>
+                        frutas.pop(0)  # Elimina por índice<br>
+                        <br>
+                        # Métodos útiles<br>
+                        longitud = len(frutas)<br>
+                        frutas.sort()  # Ordena la lista<br>
+                        frutas.reverse()  # Invierte el orden
+                    </div>
+                </div>
+                
+                <div id="tuplas" class="tab-content">
+                    <h3>Tuplas</h3>
+                    <p>Las tuplas son colecciones ordenadas e inmutables de elementos.</p>
+                    <div class="code-block">
+                        # Crear una tupla<br>
+                        coordenadas = (10, 20)<br>
+                        colores = ("rojo", "verde", "azul")<br>
+                        <br>
+                        # Acceder a elementos<br>
+                        print(coordenadas[0])  # 10<br>
+                        print(colores[1:3])  # ("verde", "azul") - slicing<br>
+                        <br>
+                        # Las tuplas son inmutables<br>
+                        # coordenadas[0] = 15  # Esto daría error<br>
+                        <br>
+                        # Desempaquetado de tuplas<br>
+                        x, y = coordenadas<br>
+                        print(f"x: {x}, y: {y}")  # x: 10, y: 20
+                    </div>
+                </div>
+                
+                <div id="diccionarios" class="tab-content">
+                    <h3>Diccionarios</h3>
+                    <p>Los diccionarios son colecciones no ordenadas de pares clave-valor.</p>
+                    <div class="code-block">
+                        # Crear un diccionario<br>
+                        persona = {<br>
+                            "nombre": "Ana",<br>
+                            "edad": 30,<br>
+                            "ciudad": "Madrid"<br>
+                        }<br>
+                        <br>
+                        # Acceder a valores<br>
+                        print(persona["nombre"])  # "Ana"<br>
+                        print(persona.get("edad"))  # 30<br>
+                        <br>
+                        # Modificar valores<br>
+                        persona["edad"] = 31<br>
+                        <br>
+                        # Añadir nuevos pares clave-valor<br>
+                        persona["profesion"] = "Ingeniera"<br>
+                        <br>
+                        # Eliminar elementos<br>
+                        del persona["ciudad"]<br>
+                        profesion = persona.pop("profesion")<br>
+                        <br>
+                        # Métodos útiles<br>
+                        claves = persona.keys()<br>
+                        valores = persona.values()<br>
+                        items = persona.items()<br>
+                        <br>
+                        # Recorrer un diccionario<br>
+                        for clave, valor in persona.items():<br>
+                            print(f"{clave}: {valor}")
+                    </div>
+                </div>
+                
+                <div id="conjuntos" class="tab-content">
+                    <h3>Conjuntos</h3>
+                    <p>Los conjuntos son colecciones no ordenadas de elementos únicos.</p>
+                    <div class="code-block">
+                        # Crear un conjunto<br>
+                        numeros = {1, 2, 3, 4, 5}<br>
+                        letras = set(["a", "b", "c", "a"])  # {"a", "b", "c"}<br>
+                        <br>
+                        # Añadir elementos<br>
+                        numeros.add(6)<br>
+                        <br>
+                        # Eliminar elementos<br>
+                        numeros.remove(3)<br>
+                        numeros.discard(10)  # No da error si el elemento no existe<br>
+                        <br>
+                        # Operaciones con conjuntos<br>
+                        A = {1, 2, 3}<br>
+                        B = {3, 4, 5}<br>
+                        <br>
+                        union = A | B  # {1, 2, 3, 4, 5}<br>
+                        interseccion = A & B  # {3}<br>
+                        diferencia = A - B  # {1, 2}<br>
+                        diferencia_simetrica = A ^ B  # {1, 2, 4, 5}
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <h3>Ejercicio: Gestor de Contactos</h3>
+                <p>Crea un programa que permita almacenar contactos (nombre y teléfono) en un diccionario y ofrezca opciones para añadir, buscar y eliminar contactos.</p>
+                <div class="interactive">
+                    <button onclick="showSolution('sol2')">Ver solución</button>
+                    <div id="sol2" class="output" style="display:none;">
+                        <div class="code-block">
+                            contactos = {}<br>
+                            <br>
+                            while True:<br>
+                                print("\n1. Añadir contacto")<br>
+                                print("2. Buscar contacto")<br>
+                                print("3. Eliminar contacto")<br>
+                                print("4. Mostrar todos los contactos")<br>
+                                print("5. Salir")<br>
+                                <br>
+                                opcion = input("Selecciona una opción: ")<br>
+                                <br>
+                                if opcion == "1":<br>
+                                    nombre = input("Nombre: ")<br>
+                                    telefono = input("Teléfono: ")<br>
+                                    contactos[nombre] = telefono<br>
+                                    print("Contacto añadido.")<br>
+                                elif opcion == "2":<br>
+                                    nombre = input("Nombre a buscar: ")<br>
+                                    if nombre in contactos:<br>
+                                        print(f"Teléfono: {contactos[nombre]}")<br>
+                                    else:<br>
+                                        print("Contacto no encontrado.")<br>
+                                elif opcion == "3":<br>
+                                    nombre = input("Nombre a eliminar: ")<br>
+                                    if nombre in contactos:<br>
+                                        del contactos[nombre]<br>
+                                        print("Contacto eliminado.")<br>
+                                    else:<br>
+                                        print("Contacto no encontrado.")<br>
+                                elif opcion == "4":<br>
+                                    for nombre, telefono in contactos.items():<br>
+                                        print(f"{nombre}: {telefono}")<br>
+                                elif opcion == "5":<br>
+                                    break<br>
+                                else:<br>
+                                    print("Opción no válida.")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="funciones" class="section">
+            <h2>Funciones en Python</h2>
+            <p>Las funciones permiten organizar el código en bloques reutilizables.</p>
+            
+            <h3>Definición de funciones</h3>
+            <div class="code-block">
+                # Función simple<br>
+                def saludar():<br>
+                    print("¡Hola!")<br>
+                <br>
+                # Función con parámetros<br>
+                def saludar_persona(nombre):<br>
+                    print(f"¡Hola, {nombre}!")<br>
+                <br>
+                # Función con retorno<br>
+                def sumar(a, b):<br>
+                    return a + b<br>
+                <br>
+                # Función con parámetros por defecto<br>
+                def presentar(nombre, edad=30):<br>
+                    print(f"Soy {nombre} y tengo {edad} años.")<br>
+                <br>
+                # Llamadas a funciones<br>
+                saludar()<br>
+                saludar_persona("Ana")<br>
+                resultado = sumar(5, 3)<br>
+                presentar("Carlos")<br>
+                presentar("Laura", 25)
+            </div>
+            
+            <h3>Funciones lambda (anónimas)</h3>
+            <div class="code-block">
+                # Función lambda simple<br>
+                cuadrado = lambda x: x ** 2<br>
+                print(cuadrado(5))  # 25<br>
+                <br>
+                # Uso con map<br>
+                numeros = [1, 2, 3, 4, 5]<br>
+                cuadrados = list(map(lambda x: x ** 2, numeros))<br>
+                print(cuadrados)  # [1, 4, 9, 16, 25]<br>
+                <br>
+                # Uso con filter<br>
+                pares = list(filter(lambda x: x % 2 == 0, numeros))<br>
+                print(pares)  # [2, 4]
+            </div>
+            
+            <div class="exercise">
+                <h3>Ejercicio: Calculadora de Factorial</h3>
+                <p>Crea una función que calcule el factorial de un número (n!) de forma recursiva.</p>
+                <div class="interactive">
+                    <button onclick="showSolution('sol3')">Ver solución</button>
+                    <div id="sol3" class="output" style="display:none;">
+                        <div class="code-block">
+                            def factorial(n):<br>
+                                if n == 0 or n == 1:<br>
+                                    return 1<br>
+                                else:<br>
+                                    return n * factorial(n - 1)<br>
+                            <br>
+                            # Prueba la función<br>
+                            numero = int(input("Introduce un número: "))<br>
+                            print(f"El factorial de {numero} es {factorial(numero)}")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="bucles" class="section">
+            <h2>Bucles y Condiciones</h2>
+            
+            <h3>Condicionales: if, elif, else</h3>
+            <div class="code-block">
+                edad = 18<br>
+                <br>
+                if edad < 18:<br>
+                    print("Eres menor de edad")<br>
+                elif edad == 18:<br>
+                    print("Tienes exactamente 18 años")<br>
+                else:<br>
+                    print("Eres mayor de edad")<br>
+                <br>
+                # Condicionales anidados<br>
+                nota = 85<br>
+                <br>
+                if nota >= 90:<br>
+                    print("A")<br>
+                elif nota >= 80:<br>
+                    print("B")<br>
+                elif nota >= 70:<br>
+                    print("C")<br>
+                else:<br>
+                    print("F")
+            </div>
+            
+            <h3>Bucles: for y while</h3>
+            <div class="code-block">
+                # Bucle for<br>
+                for i in range(5):<br>
+                    print(i)  # 0, 1, 2, 3, 4<br>
+                <br>
+                frutas = ["manzana", "banana", "cereza"]<br>
+                for fruta in frutas:<br>
+                    print(fruta)<br>
+                <br>
+                # Bucle while<br>
+                contador = 0<br>
+                while contador < 5:<br>
+                    print(contador)<br>
+                    contador += 1<br>
+                <br>
+                # Control de bucles: break y continue<br>
+                for i in range(10):<br>
+                    if i == 3:<br>
+                        continue  # Salta esta iteración<br>
+                    if i == 7:<br>
+                        break  # Sale del bucle<br>
+                    print(i)  # 0, 1, 2, 4, 5, 6
+            </div>
+            
+            <div class="exercise">
+                <h3>Ejercicio: Triángulo con Asteriscos</h3>
+                <p>Crea un programa que pida al usuario un número y dibuje un triángulo de asteriscos con esa altura.</p>
+                <div class="interactive">
+                    <input type="number" id="triangleHeight" placeholder="Altura del triángulo" min="1" max="20">
+                    <button onclick="drawTriangle()">Dibujar triángulo</button>
+                    <div class="output" id="triangleOutput"></div>
+                </div>
+            </div>
+            
+            <div class="exercise">
+                <h3>Ejercicio: FizzBuzz</h3>
+                <p>El clásico ejercicio FizzBuzz: para números del 1 al 100, muestra "Fizz" si es divisible por 3, "Buzz" si es divisible por 5, y "FizzBuzz" si es divisible por ambos.</p>
+                <div class="interactive">
+                    <button onclick="showSolution('sol4')">Ver solución</button>
+                    <div id="sol4" class="output" style="display:none;">
+                        <div class="code-block">
+                            for i in range(1, 101):<br>
+                                if i % 3 == 0 and i % 5 == 0:<br>
+                                    print("FizzBuzz")<br>
+                                elif i % 3 == 0:<br>
+                                    print("Fizz")<br>
+                                elif i % 5 == 0:<br>
+                                    print("Buzz")<br>
+                                else:<br>
+                                    print(i)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="objetos" class="section">
+            <h2>Programación Orientada a Objetos</h2>
+            <p>La POO permite modelar entidades del mundo real mediante clases y objetos.</p>
+            
+            <h3>Clases y Objetos</h3>
+            <div class="code-block">
+                # Definición de una clase<br>
+                class Persona:<br>
+                    # Constructor<br>
+                    def __init__(self, nombre, edad):<br>
+                        self.nombre = nombre<br>
+                        self.edad = edad<br>
+                    <br>
+                    # Método de instancia<br>
+                    def presentarse(self):<br>
+                        print(f"Hola, soy {self.nombre} y tengo {self.edad} años.")<br>
+                    <br>
+                    # Método para modificar atributos<br>
+                    def cumplir_anios(self):<br>
+                        self.edad += 1<br>
+                        print(f"¡Ahora tengo {self.edad} años!")<br>
+                <br>
+                # Crear objetos (instancias)<br>
+                persona1 = Persona("Ana", 25)<br>
+                persona2 = Persona("Carlos", 30)<br>
+                <br>
+                # Usar métodos<br>
+                persona1.presentarse()<br>
+                persona2.presentarse()<br>
+                persona1.cumplir_anios()
+            </div>
+            
+            <h3>Herencia</h3>
+            <div class="code-block">
+                # Clase base<br>
+                class Animal:<br>
+                    def __init__(self, nombre):<br>
+                        self.nombre = nombre<br>
+                    <br>
+                    def hacer_sonido(self):<br>
+                        pass  # Método abstracto<br>
+                <br>
+                # Clases derivadas<br>
+                class Perro(Animal):<br>
+                    def hacer_sonido(self):<br>
+                        return "¡Guau!"<br>
+                <br>
+                class Gato(Animal):<br>
+                    def hacer_sonido(self):<br>
+                        return "¡Miau!"<br>
+                <br>
+                # Uso de la herencia<br>
+                perro = Perro("Rex")<br>
+                gato = Gato("Whiskers")<br>
+                <br>
+                print(f"{perro.nombre} dice: {perro.hacer_sonido()}")<br>
+                print(f"{gato.nombre} dice: {gato.hacer_sonido()}")
+            </div>
+            
+            <h3>Encapsulación</h3>
+            <div class="code-block">
+                class CuentaBancaria:<br>
+                    def __init__(self, titular, saldo_inicial=0):<br>
+                        self.titular = titular<br>
+                        self.__saldo = saldo_inicial  # Atributo privado<br>
+                    <br>
+                    # Métodos públicos para acceder al saldo<br>
+                    def depositar(self, cantidad):<br>
+                        if cantidad > 0:<br>
+                            self.__saldo += cantidad<br>
+                            print(f"Depósito exitoso. Nuevo saldo: {self.__saldo}")<br>
+                        else:<br>
+                            print("La cantidad debe ser positiva")<br>
+                    <br>
+                    def retirar(self, cantidad):<br>
+                        if 0 < cantidad <= self.__saldo:<br>
+                            self.__saldo -= cantidad<br>
+                            print(f"Retiro exitoso. Nuevo saldo: {self.__saldo}")<br>
+                        else:<br>
+                            print("Fondos insuficientes o cantidad inválida")<br>
+                    <br>
+                    def consultar_saldo(self):<br>
+                        return self.__saldo<br>
+                <br>
+                # Uso de la clase<br>
+                cuenta = CuentaBancaria("Ana", 1000)<br>
+                cuenta.depositar(500)<br>
+                cuenta.retirar(200)<br>
+                print(f"Saldo actual: {cuenta.consultar_saldo()}")
+            </div>
+            
+            <div class="exercise">
+                <h3>Ejercicio: Sistema de Gestión de Vehículos</h3>
+                <p>Crea un sistema de gestión de vehículos con una clase base Vehiculo y clases derivadas Coche y Moto. Cada vehículo debe tener marca, modelo y año, y un método para mostrar información.</p>
+                <div class="interactive">
+                    <button onclick="showSolution('sol5')">Ver solución</button>
+                    <div id="sol5" class="output" style="display:none;">
+                        <div class="code-block">
+                            class Vehiculo:<br>
+                                def __init__(self, marca, modelo, año):<br>
+                                    self.marca = marca<br>
+                                    self.modelo = modelo<br>
+                                    self.año = año<br>
+                                <br>
+                                def mostrar_info(self):<br>
+                                    return f"{self.marca} {self.modelo} ({self.año})"<br>
+                            <br>
+                            class Coche(Vehiculo):<br>
+                                def __init__(self, marca, modelo, año, num_puertas):<br>
+                                    super().__init__(marca, modelo, año)<br>
+                                    self.num_puertas = num_puertas<br>
+                                <br>
+                                def mostrar_info(self):<br>
+                                    return f"Coche: {super().mostrar_info()}, {self.num_puertas} puertas"<br>
+                            <br>
+                            class Moto(Vehiculo):<br>
+                                def __init__(self, marca, modelo, año, tipo):<br>
+                                    super().__init__(marca, modelo, año)<br>
+                                    self.tipo = tipo<br>
+                                <br>
+                                def mostrar_info(self):<br>
+                                    return f"Moto: {super().mostrar_info()}, tipo: {self.tipo}"<br>
+                            <br>
+                            # Crear vehículos<br>
+                            coche = Coche("Toyota", "Corolla", 2020, 4)<br>
+                            moto = Moto("Honda", "CBR", 2021, "deportiva")<br>
+                            <br>
+                            print(coche.mostrar_info())<br>
+                            print(moto.mostrar_info())
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="ejercicios" class="section">
+            <h2>Ejercicios Adicionales</h2>
+            <p>Practica con estos ejercicios para reforzar tus conocimientos:</p>
+            
+            <div class="exercise">
+                <h3>1. Palíndromo</h3>
+                <p>Escribe una función que determine si una palabra es un palíndromo (se lee igual en ambos sentidos).</p>
+            </div>
+            
+            <div class="exercise">
+                <h3>2. Contador de Vocales</h3>
+                <p>Crea una función que cuente el número de vocales en una cadena de texto.</p>
+            </div>
+            
+            <div class="exercise">
+                <h3>3. Ordenamiento de Lista</h3>
+                <p>Implementa el algoritmo de ordenamiento burbuja para ordenar una lista de números.</p>
+            </div>
+            
+            <div class="exercise">
+                <h3>4. Juego de Adivinanza</h3>
+                <p>Crea un juego donde el programa elija un número aleatorio y el usuario tenga que adivinarlo.</p>
+            </div>
+            
+            <div class="exercise">
+                <h3>5. Calculadora de IMC</h3>
+                <p>Desarrolla un programa que calcule el Índice de Masa Corporal (IMC) basado en peso y altura.</p>
+            </div>
+            
+            <div class="interactive">
+                <h3>Prueba tus soluciones</h3>
+                <textarea id="customCode" rows="10" cols="50" placeholder="Escribe tu código aquí..."></textarea>
+                <button onclick="runCode('customCode', 'customOutput')">Ejecutar</button>
+                <div class="output" id="customOutput"></div>
+            </div>
+        </section>
+        
+        <section id="certificado" class="certificate-section">
+            <h2>Obtén tu Certificado</h2>
+            <p>Completa la guía y genera tu certificado de finalización.</p>
+            
+            <div class="progress-bar">
+                <div class="progress" id="progressBar"></div>
+            </div>
+            <p id="progressText">Progreso: 0%</p>
+            
+            <div class="certificate-preview" id="certificatePreview">
+                <div class="certificate-title">Certificado de Finalización</div>
+                <p class="certificate-text">Se otorga el presente certificado a:</p>
+                <h3 id="certificateName">[Tu Nombre]</h3>
+                <p class="certificate-text">Por haber completado exitosamente la</p>
+                <p class="certificate-text"><strong>Guía Completa de Python</strong></p>
+                <p class="certificate-text">Demostrando competencia en programación Python desde conceptos básicos hasta programación orientada a objetos.</p>
+                <p class="certificate-text">Fecha: <span id="certificateDate"></span></p>
+                
+                <div class="signature-area">
+                    <div class="signature">
+                        <p>Firma del Instructor</p>
+                        <p>Abner</p>
+                        <p>GitHub: abner-example</p>
+                    </div>
+                    <div class="signature">
+                        <p>Firma del Estudiante</p>
+                        <p id="studentSignature">___________________</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="interactive" style="max-width: 600px; margin: 0 auto;">
+                <h3>Personaliza tu certificado</h3>
+                <input type="text" id="studentName" placeholder="Tu nombre completo">
+                <input type="text" id="studentGitHub" placeholder="Tu usuario de GitHub">
+                <button onclick="updateCertificate()">Actualizar certificado</button>
+                <button onclick="generatePDF()">Descargar Certificado PDF</button>
+            </div>
+        </section>
+    </div>
+
+    </footer>
+
+    <script>
+        // Funciones para las pestañas
+        function openTab(evt, tabName) {
+            const tabcontent = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            const tablinks = document.getElementsByClassName("tab");
+            for (let i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            
+            // Actualizar progreso
+            updateProgress();
+        }
+        
+        // Función para ejecutar código
+        function runCode(textareaId, outputId) {
+            const code = document.getElementById(textareaId).value;
+            const output = document.getElementById(outputId);
+            
+            try {
+                // En un entorno real, esto se ejecutaría en un backend por seguridad
+                // Esta es una simulación básica
+                if (code.includes("print")) {
+                    const matches = code.match(/print\("([^"]*)"\)/);
+                    if (matches) {
+                        output.innerHTML = matches[1];
+                    } else {
+                        output.innerHTML = "Ejecutado correctamente (simulación)";
+                    }
+                } else if (code.includes("input")) {
+                    output.innerHTML = "Función input detectada. En un entorno real, pediría datos al usuario.";
+                } else {
+                    output.innerHTML = "Código ejecutado correctamente (simulación)";
+                }
+            } catch (error) {
+                output.innerHTML = "Error: " + error.message;
+            }
+        }
+        
+        // Función para mostrar soluciones
+        function showSolution(elementId) {
+            const element = document.getElementById(elementId);
+            if (element.style.display === "none") {
+                element.style.display = "block";
+            } else {
+                element.style.display = "none";
+            }
+        }
+        
+        // Función para dibujar triángulo
+        function drawTriangle() {
+            const height = parseInt(document.getElementById("triangleHeight").value);
+            const output = document.getElementById("triangleOutput");
+            
+            if (isNaN(height) || height < 1 || height > 20) {
+                output.innerHTML = "Por favor, introduce una altura válida entre 1 y 20.";
+                return;
+            }
+            
+            let triangle = "";
+            for (let i = 1; i <= height; i++) {
+                triangle += " ".repeat(height - i) + "*".repeat(2 * i - 1) + "<br>";
+            }
+            
+            output.innerHTML = triangle;
+        }
+        
+        // Función para actualizar el certificado
+        function updateCertificate() {
+            const name = document.getElementById("studentName").value || "[Tu Nombre]";
+            const github = document.getElementById("studentGitHub").value || "";
+            
+            document.getElementById("certificateName").textContent = name;
+            document.getElementById("studentSignature").textContent = name;
+            
+            const date = new Date();
+            document.getElementById("certificateDate").textContent = date.toLocaleDateString();
+            
+            // Actualizar progreso
+            updateProgress();
+        }
+        
+        // Función para actualizar el progreso
+        function updateProgress() {
+            // Simulación de progreso basado en las secciones visitadas
+            const sections = document.querySelectorAll('.section, .certificate-section');
+            let visited = 0;
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom >= 0) {
+                    visited++;
+                }
+            });
+            
+            const progress = Math.min(100, Math.round((visited / sections.length) * 100));
+            document.getElementById("progressBar").style.width = `${progress}%`;
+            document.getElementById("progressText").textContent = `Progreso: ${progress}%`;
+        }
+        
+        // Función para generar PDF
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const certificate = document.getElementById("certificatePreview");
+            
+            html2canvas(certificate).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('l', 'mm', 'a4');
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                const imgWidth = canvas.width;
+                const imgHeight = canvas.height;
+                const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+                const imgX = (pdfWidth - imgWidth * ratio) / 2;
+                const imgY = 10;
+                
+                pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+                pdf.save('certificado-python.pdf');
+            });
+        }
+        
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCertificate();
+            window.addEventListener('scroll', updateProgress);
+        });
+    </script>
+</body>
+</html>
+            
+            
